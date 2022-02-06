@@ -1,9 +1,10 @@
 import React from 'react';
 import Home from './pages/Home';
-import { ChakraProvider, theme } from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
 import { Routes, Route } from 'react-router-dom';
 import About from './pages/About';
 import Results from './pages/Results';
+import theme from './theme';
 
 function App() {
   return (
