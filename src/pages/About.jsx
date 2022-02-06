@@ -8,7 +8,7 @@ import {
   ListItem,
   ListIcon,
 } from '@chakra-ui/react';
-import { FaLinkedin, FaGithub } from 'react-icons/fa';
+import { FaLinkedin } from 'react-icons/fa';
 import BackHome from '../components/BackHome';
 
 function About() {
@@ -21,7 +21,7 @@ function About() {
           <Text fontSize="5xl" fontWeight="bold" color="tomato">
             About
           </Text>
-          <Text fontSize="xl" color="gray.200" noOfLines={2} mx={10}>
+          <Text fontSize="xl" color="gray.200" noOfLines={3} mx={10}>
             To answer the most important question of all, what's the best
             programming meme?
           </Text>
