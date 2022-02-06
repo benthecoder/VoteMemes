@@ -1,5 +1,13 @@
 import React from 'react';
-import { Text, Box, Image, Flex, Center } from '@chakra-ui/react';
+import {
+  Text,
+  Box,
+  Image,
+  Tag,
+  Center,
+  VStack,
+  TagLabel,
+} from '@chakra-ui/react';
 import BackHome from '../components/BackHome';
 import { db } from '../firebase-config';
 import { getDocs, collection, query, orderBy, limit } from 'firebase/firestore';
@@ -11,7 +19,7 @@ function Results() {
   useEffect(() => {
     const getResults = async () => {
       const memesRef = collection(db, 'memes');
-      const q = query(memesRef, orderBy('count', 'desc'), limit(3));
+      const q = query(memesRef, orderBy('count', 'desc'), limit(5));
       const querySnapshot = await getDocs(q);
       let memeArr = [];
       querySnapshot.forEach(doc => {
@@ -36,10 +44,11 @@ function Results() {
           noOfLines={2}
           my={6}
         >
-          Here are the top 3 memes hackers voted for
+          Here are the top 5 memes hackers voted for
         </Text>
+
         <Center>
-          <Flex>
+          <VStack>
             {res.map(meme => {
               return (
                 <Box
@@ -50,20 +59,27 @@ function Results() {
                   overflow="hidden"
                 >
                   <Image
+                    objectFit="cover"
                     src={meme.image_url}
                     alt=""
                     htmlHeight={500}
                     htmlWidth={500}
-                    objectFit="contet"
                   />
-                  <Box mt={10}>
-                    Count: {meme.count}
-                    <Box as="span" color="gray.600" fontSize="sm"></Box>
-                  </Box>
+                  <Tag
+                    my={5}
+                    size="lg"
+                    variant="solid"
+                    colorScheme="twitter"
+                    color="white"
+                  >
+                    <TagLabel fontWeight="bold">
+                      Vote Count: {meme.count}
+                    </TagLabel>
+                  </Tag>
                 </Box>
               );
             })}
-          </Flex>
+          </VStack>
         </Center>
       </Box>
       <BackHome />
