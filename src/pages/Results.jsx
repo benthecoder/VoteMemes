@@ -44,7 +44,7 @@ function Results() {
           noOfLines={2}
           my={6}
         >
-          Here are the top 5 memes hackers voted for
+          Here are the top 10 memes hackers voted for
         </Text>
 
         <Center>
