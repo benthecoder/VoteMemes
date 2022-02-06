@@ -125,6 +125,7 @@ const StyledDiv = styled.div`
 
   .container {
     display: flex;
+    flex: wrap;
     flex-direction: row;
     width: 80%;
     margin: auto;
@@ -139,8 +140,9 @@ const StyledDiv = styled.div`
   }
 
   div {
-    flex: 1 1;
+    flex: 1 1 20;
     display: flex;
+    flex: wrap;
     align-items: center;
     flex-direction: column;
   }
