@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Button, Text } from '@chakra-ui/react';
 import { db } from '../firebase-config';
 import { getDocs, collection, addDoc } from 'firebase/firestore';
+import { motion } from 'framer-motion';
 
 const URL = 'https://meme-api.herokuapp.com/gimme/ProgrammerHumor/2';
 
@@ -85,7 +86,12 @@ function Home() {
               memes.map(meme => {
                 return (
                   <div key={meme.ups}>
-                    <img src={meme.url} alt="" />
+                    <motion.img
+                      animate={{ opacity: 1, transition: { duration: 2 } }}
+                      initial={{ opacity: 0 }}
+                      src={meme.url}
+                      alt=""
+                    />
 
                     <Button
                       onClick={() => getMemes(meme.ups, meme.url)}
