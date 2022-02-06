@@ -19,7 +19,7 @@ function Results() {
   useEffect(() => {
     const getResults = async () => {
       const memesRef = collection(db, 'memes');
-      const q = query(memesRef, orderBy('count', 'desc'), limit(5));
+      const q = query(memesRef, orderBy('count', 'desc'), limit(10));
       const querySnapshot = await getDocs(q);
       let memeArr = [];
       querySnapshot.forEach(doc => {
