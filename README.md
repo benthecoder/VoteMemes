@@ -10,7 +10,7 @@ To answer the most important question of all, what's the best programming meme?
 
 Tech Stack:
 
-- FrontEnd : React, ChakraUI, CSS
+- FrontEnd : React, ChakraUI, Css
 - BackEnd : Firebase
 - API : [Meme API](https://github.com/D3vd/Meme_Api)
 
