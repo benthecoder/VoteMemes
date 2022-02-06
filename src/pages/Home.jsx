@@ -9,6 +9,7 @@ import { Button, Text } from '@chakra-ui/react';
 import { db } from '../firebase-config';
 import { getDocs, collection, addDoc } from 'firebase/firestore';
 import { motion } from 'framer-motion';
+import { pageAnimation } from '../components/Animation';
 
 const URL = 'https://meme-api.herokuapp.com/gimme/ProgrammerHumor/2';
 
@@ -60,7 +61,12 @@ function Home() {
   }, []);
 
   return (
-    <>
+    <motion.div
+      variants={pageAnimation}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+    >
       <Box textAlign="center" fontSize="xl" as="kbd">
         <StyledDiv>
           {/* {memeDB.map(meme => {
@@ -87,7 +93,7 @@ function Home() {
                 return (
                   <div key={meme.ups}>
                     <motion.img
-                      animate={{ opacity: 1, transition: { duration: 2 } }}
+                      animate={{ opacity: 1, transition: { duration: 1 } }}
                       initial={{ opacity: 0 }}
                       src={meme.url}
                       alt=""
@@ -113,7 +119,7 @@ function Home() {
         </StyledDiv>
       </Box>
       <Footer />
-    </>
+    </motion.div>
   );
 }
 
