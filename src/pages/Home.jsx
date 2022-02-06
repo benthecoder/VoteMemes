@@ -87,7 +87,7 @@ function Home() {
                 return (
                   <div key={meme.ups}>
                     <motion.img
-                      animate={{ opacity: 1, transition: { duration: 2 } }}
+                      animate={{ opacity: 1, transition: { duration: 1 } }}
                       initial={{ opacity: 0 }}
                       src={meme.url}
                       alt=""
