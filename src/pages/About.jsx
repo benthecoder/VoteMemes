@@ -10,12 +10,13 @@ import {
 } from '@chakra-ui/react';
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
 import BackHome from '../components/BackHome';
+import styled from 'styled-components';
 
 function About() {
   const API_URL = 'https://github.com/D3vd/Meme_Api';
   const GITHUB_URL = 'https://github.com/benthecoder/VoteMemes';
   return (
-    <>
+    <styledDiv>
       <Box textAlign="center" fontSize="xl" as="kbd">
         <Stack spacing={10}>
           <Text fontSize="5xl" fontWeight="bold" color="tomato">
@@ -68,9 +69,10 @@ function About() {
           </Text>
         </Stack>
       </Box>
-      <BackHome />
-    </>
+      <BackHome className="backHome" />
+    </styledDiv>
   );
 }
 
+const styledDiv = styled.div``;
 export default About;

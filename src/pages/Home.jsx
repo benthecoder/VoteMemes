@@ -149,6 +149,44 @@ const StyledDiv = styled.div`
     width: 500px;
     height: 450px;
   }
+
+  @media (max-width: 500px) {
+    width: 80%;
+    margin: auto;
+    p {
+      font-size: 2rem;
+      align: center;
+    }
+
+    Button {
+      padding: 0px 10px;
+      margin-top: 1.5rem;
+    }
+    .container {
+      width: 75%;
+      margin-bottom: 7rem;
+    }
+    img {
+      width: calc(350px - 4vw);
+      height: calc(380px - 4vh);
+    }
+  }
+
+  @media (max-width: 380px) {
+    p {
+      font-size: 1.3rem;
+      align: center;
+    }
+
+    .container {
+      margin-top: 1rem;
+      margin-bottom: 0rem;
+    }
+    Button {
+      font-size: 14px;
+      margin-top: 15px;
+    }
+  }
 `;
 
 export default Home;
