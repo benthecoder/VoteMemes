@@ -8,7 +8,7 @@ import {
   ListItem,
   ListIcon,
 } from '@chakra-ui/react';
-import { FaLinkedin } from 'react-icons/fa';
+import { FaLinkedin, FaGithub } from 'react-icons/fa';
 import BackHome from '../components/BackHome';
 
 function About() {

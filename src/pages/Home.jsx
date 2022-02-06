@@ -7,37 +7,58 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { Button, Text } from '@chakra-ui/react';
 import { db } from '../firebase-config';
-import { getDocs, collection, addDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { motion } from 'framer-motion';
 
-const URL = 'https://meme-api.herokuapp.com/gimme/ProgrammerHumor/2';
+const MEME_API_URL = 'https://meme-api.herokuapp.com/gimme/ProgrammerHumor/2';
 
 function Home() {
   const [memes, setMemes] = useState([]);
   const [click, setClick] = useState(true);
-  const [memeDB, setMemeDB] = useState([]);
-  const [url, setUrl] = useState('');
-  const [ID, setID] = useState(0);
-  const [count, setCount] = useState(0);
 
-  const memeCollectionRef = collection(db, 'memes');
+  const grabID = url => {
+    const id = url.split('/').at(-1);
+    return id;
+  };
 
-  const getMemes = async (memeID, url) => {
+  const getMemeCount = async ID => {
+    const memeRef = doc(db, 'memes', ID);
+    const docSnap = await getDoc(memeRef);
+
+    if (docSnap.exists()) {
+      return docSnap.data();
+    }
+    // console.log('No such document!');
+    return 0;
+  };
+
+  const setMemeData = async (postLink, url) => {
+    const ID = grabID(postLink);
+    let docObj = await getMemeCount(ID);
+    let count = 0;
+
+    if (docObj === 0) {
+      count = 1;
+    } else {
+      count = docObj.count + 1;
+    }
+
+    setDoc(doc(db, 'memes', ID), {
+      image_url: url,
+      count: count,
+    });
+  };
+
+  const getMemes = async (postLink, url) => {
     axios
-      .get(URL)
+      .get(MEME_API_URL)
       .then(res => {
-        console.log(res.data.memes);
         setMemes(res.data.memes);
         if (!click) {
-          setID(memeID);
-          setUrl(url);
-          addDoc(memeCollectionRef, {
-            Url: url,
-            Id: ID,
-            Count: count + 1,
-          });
+          setMemeData(postLink, url);
         }
       })
+
       .catch(err => {
         console.log(err);
       });
@@ -50,31 +71,13 @@ function Home() {
     }
   }, []);
 
-  useEffect(() => {
-    const getMemes = async () => {
-      const data = await getDocs(memeCollectionRef);
-      setMemeDB(data.docs.map(doc => ({ ...doc.data(), ID: doc.ID })));
-    };
-
-    getMemes();
-  }, []);
-
   return (
     <>
       <Box textAlign="center" fontSize="xl" as="kbd">
         <StyledDiv>
-          {/* {memeDB.map(meme => {
-            return (
-              <div>
-                <h1>URL : {meme.Url}</h1>
-                <h1>ID : {meme.Id}</h1>
-                <h1>Count: {meme.Count}</h1>
-              </div>
-            );
-          })} */}
           <Text
             mt={7}
-            bgGradient="linear(to-r, #f2709c, #ff9472)"
+            bgGradient="linear(to-r, #ECE9E6, #FFFFFF)"
             bgClip="text"
             fontSize="4xl"
             fontWeight="extrabold"
@@ -94,14 +97,14 @@ function Home() {
                     />
 
                     <Button
-                      onClick={() => getMemes(meme.ups, meme.url)}
+                      onClick={() => getMemes(meme.postLink, meme.url)}
                       colorScheme={'teal'}
                       size="lg"
                       color="white"
                       leftIcon={<FaCheckCircle />}
-                      bgGradient="linear(to-r, teal.500, green.500)"
+                      bgGradient="linear(to-r, #396afc, #2948ff)"
                       _hover={{
-                        bgGradient: 'linear(to-r, red.500, yellow.500)',
+                        bgGradient: 'linear(to-r, #11998e, #38ef7d)',
                       }}
                     >
                       Vote
@@ -143,7 +146,7 @@ const StyledDiv = styled.div`
   }
 
   img {
-    width: 450px;
+    width: 500px;
     height: 450px;
   }
 `;
